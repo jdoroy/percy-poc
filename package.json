@@ -11,7 +11,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "presnapshots:local": "npm run build && http-server ./build -s -p 8000 &",
+    "snapshots:local": "percy exec -- node snapshots.js",
+    "postsnapshots:local": "killall node",
+    "presnapshots:ci": "npm run build && http-server ./build -s -p 8000 &",
+    "snapshots:ci": "percy exec -- node snapshots.js",
+    "postsnapshots:ci": "killall node"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -27,5 +33,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@percy/script": "^1.0.0",
+    "http-server": "^0.11.1",
+    "serve": "^11.0.2"
   }
 }
