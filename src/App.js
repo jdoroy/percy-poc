@@ -5,7 +5,7 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="App-header" style={{ color: "blue" }}>
         <img src={logo} className="App-logo" alt="logo" />
         <p style={{ color: "red" }}>
           Edit <code>src/App.js</code> and save to reload.
