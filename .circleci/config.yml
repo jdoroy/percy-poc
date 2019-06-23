@@ -1,7 +1,22 @@
 version: 2.1
 
 jobs:
-  percy_snapshots:
+  run_tests:
+    docker:
+      - image: circleci/node:10-browsers
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install dependencies
+          command: npm ci
+
+      - run:
+          name: Run Tests
+          command: npm test
+
+  run_percy_snapshots:
     docker:
       - image: circleci/node:10-browsers
 
@@ -23,4 +38,8 @@ jobs:
 workflows:
   test:
     jobs:
-      - percy_snapshots
+      - run_tests
+
+  percy:
+    jobs:
+      - run_percy_snapshots
