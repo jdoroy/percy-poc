@@ -7,6 +7,10 @@ jobs:
     working_directory: ~/percy-poc
     steps:
       - checkout
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
   install_dependencies:
     docker:
@@ -28,6 +32,10 @@ jobs:
           paths:
             - ~/usr/local/lib/node_modules # location depends on npm version
           key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
   run_tests:
     docker:
