@@ -18,3 +18,8 @@ jobs:
       - run:
           name: Percy snapshots
           command: npm run snapshots:ci
+
+workflows:
+  test:
+    jobs:
+      - percy_snapshots
