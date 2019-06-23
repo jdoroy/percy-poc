@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
- percy: percy/agent@0.1.3
-
 jobs:
   percy_snapshots:
     docker:
@@ -27,6 +24,3 @@ workflows:
   test:
     jobs:
       - percy_snapshots
-      - percy/finalize_all:
-         requires:
-           - percy_snapshots
