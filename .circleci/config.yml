@@ -13,6 +13,8 @@ jobs:
       - image: circleci/node:10-browsers
     working_directory: ~/percy-poc
     steps:
+      - attach_workspace:
+          at: .
       - restore_cache:
           keys:
             # when lock file changes, use increasingly general patterns to restore cache
