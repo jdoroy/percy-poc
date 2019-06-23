@@ -4,12 +4,14 @@ jobs:
   checkout_code:
     docker:
       - image: circleci/node:10-browsers
+    working_directory: ~/percy-poc
     steps:
       - checkout
 
   install_dependencies:
     docker:
       - image: circleci/node:10-browsers
+    working_directory: ~/percy-poc
     steps:
       - restore_cache:
           keys:
@@ -28,7 +30,7 @@ jobs:
   run_tests:
     docker:
       - image: circleci/node:10-browsers
-
+    working_directory: ~/percy-poc
     steps:
       - run:
           name: Run Tests
@@ -37,6 +39,7 @@ jobs:
   run_percy_snapshots:
     docker:
       - image: circleci/node:10-browsers
+    working_directory: ~/percy-poc
     steps:
       - run:
           name: Build
