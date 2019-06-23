@@ -1,13 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="App-header" style={{ color: "blue" }}>
+        Fancy Header
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
+        <p style={{ color: "red" }}>
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <a
