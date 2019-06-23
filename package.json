@@ -15,9 +15,8 @@
     "presnapshots:local": "npm run build && http-server ./build -s -p 8000 &",
     "snapshots:local": "percy exec -- node snapshots.js",
     "postsnapshots:local": "killall node",
-    "presnapshots:ci": "npm run build && http-server ./build -s -p 8000 &",
-    "snapshots:ci": "percy exec -- node snapshots.js",
-    "postsnapshots:ci": "killall node"
+    "presnapshots:ci": "http-server ./build -s -p 8000 &",
+    "snapshots:ci": "percy exec -- node snapshots.js"
   },
   "eslintConfig": {
     "extends": "react-app"
