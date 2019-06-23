@@ -1,16 +1,20 @@
-version: 2
+version: 2.1
 jobs:
-  build:
+  percy_snapshots:
     docker:
-      - image: debian:stretch
+      - image: circleci/node:10-browsers
 
     steps:
       - checkout
 
       - run:
-          name: Greeting
-          command: echo Hello, world.
+          name: Install dependencies
+          command: npm ci
 
       - run:
-          name: Print the Current Time
-          command: date
+          name: Build
+          command: npm run build
+
+      - run:
+          name: Percy snapshots
+          command: npm run snapshots:ci
