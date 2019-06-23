@@ -48,12 +48,12 @@ jobs:
 workflows:
   test:
     jobs:
-    - checkout_code
+      - checkout_code
       - install_dependencies:
           requires:
             - checkout_code
       - run_tests:
-          requires: 
+          requires:
             - install_dependencies
 
   percy:
