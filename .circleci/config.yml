@@ -1,17 +1,35 @@
 version: 2.1
 
 jobs:
+  checkout_code:
+    docker:
+      - image: circleci/node:10-browsers
+    steps:
+      - checkout
+
+  install_dependencies:
+    docker:
+      - image: circleci/node:10-browsers
+    steps:
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-v1-{{ .Branch }}-
+            - node-v1-
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - save_cache:
+          paths:
+            - ./node_modules # location depends on npm version
+          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+
   run_tests:
     docker:
       - image: circleci/node:10-browsers
 
     steps:
-      - checkout
-
-      - run:
-          name: Install dependencies
-          command: npm ci
-
       - run:
           name: Run Tests
           command: npm test
@@ -19,18 +37,10 @@ jobs:
   run_percy_snapshots:
     docker:
       - image: circleci/node:10-browsers
-
     steps:
-      - checkout
-
-      - run:
-          name: Install dependencies
-          command: npm ci
-
       - run:
           name: Build
           command: npm run build
-
       - run:
           name: Percy snapshots
           command: npm run snapshots:ci
@@ -38,8 +48,20 @@ jobs:
 workflows:
   test:
     jobs:
-      - run_tests
+    - checkout_code
+      - install_dependencies:
+          requires:
+            - checkout_code
+      - run_tests:
+          requires: 
+            - install_dependencies
 
   percy:
     jobs:
-      - run_percy_snapshots
+      - checkout_code
+      - install_dependencies:
+          requires:
+            - checkout_code
+      - run_percy_snapshots:
+          requires:
+            - install_dependencies
