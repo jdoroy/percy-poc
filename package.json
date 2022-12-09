@@ -35,6 +35,6 @@
   },
   "devDependencies": {
     "@percy/script": "^1.0.0",
-    "http-server": "^0.11.1"
+    "http-server": "^0.11.2"
   }
 }
